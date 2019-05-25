@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>zmy love yff</title>
+
+	<style type="text/css">
+		@font-face {
+			font-family: digit;
+			src: url('digital-7_mono.ttf') format("truetype");
+		}
+	</style>
+	<link href="./default.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="./jquery.js"></script>
+	<style type="text/css"></style>
+	<script type="text/javascript" src="./garden.js"></script>
+	<script type="text/javascript" src="./functions.js"></script>
+</head>
+
+<body>
+	<canvas id='cavs' style='position:fixed; z-index:-1;'></canvas>
+	<div id="mainDiv">
+		<div id="content" style="width: 1110px; height: 603px; margin-top: 10px; margin-left: 119.5px;">
+			<div id="code">
+				<span class="comments">/**</span><br />
+				<span class="space" /><span class="comments">* 2018年4月7号，我们在soul上相遇</span><br />
+				<span class="space" /><span class="comments">* 下班路上，收到了你睡前说的一句晚安，从此便喜欢上了你</span><br />
+				<span class="space" /><span class="comments">* 那时的你还叫狗子，我还叫二狗子，每个夜晚都多了一份期待</span><br />
+				<span class="space" /><span class="comments">* 也不知道哪里来的自信，很早就把你当我女朋友了，嘻嘻</span><br />
+				<span class="space" /><span class="comments">*/</span><br />
+				Boy i = <span class="keyword">new</span> Boy(<span class="string">"二狗子"</span>);<br />
+				Girl u = <span class="keyword">new</span> Girl(<span class="string">"狗子"</span>);<br />
+				<span class="comments">// 2018年6月2号，我们第一次见面，也从这一天开始 </span><br />
+				i.love(u);<br />
+				u.accepted();<br />
+				<span class="comments">// 每天都会时不时的想起你，心里挺甜的</span><br />
+				i.miss(u);<br />
+				<span class="comments">// 我知道我们的未来，不是那么容易，所以一直在努力着</span><br />
+				<span class="comments">// 我想要每天都照顾着你，看到你开心的样子，你笑起来的样子，真的挺好看的</span><br />
+				i.takeCareOf(u);<br />
+				<span class="comments">// 生活也许算不上那么容易</span><br />
+				<span class="comments">// I'll fight for u!</span><br />
+				<span class="keyword">boolean</span> isDiffcult = <span class="keyword">true</span>;<br />
+				<span class="keyword">while</span> (isDiffcult) {<br />
+				<span class="placeholder" />i.fightFor(u);<br />
+				<span class="placeholder" /><span class="comments">// 为了我们的幸福</span><br />
+				<span class="placeholder" />isDiffcult = i.overCome();<br />
+				}<br />
+				<span class="comments">// 我们会有一个温暖的家，一个大大的房子，一个调皮的儿子或者一个暖心的女儿</span><br />
+				i.marry(u);<br />
+				i.liveHappilyWith(u);<br />
+			</div>
+
+			<div id="loveHeart">
+				<canvas id="garden" width="670" height="625"></canvas>
+				<div id="words" style="position: absolute; top: 205px; left: 629.5px;">
+					<div id="messages" style="display: block;">
+						We have been together for
+						<div id="elapseClock"><span class="digit">0</span> days <span class="digit">0</span> hours <span
+								class="digit">0</span> minutes <span class="digit">0</span> seconds</div>
+					</div>
+					<div id="loveu" style="display: block;">
+						love you forever<div class="signature">:-)</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var offsetX = $("#loveHeart").width() / 2;
+		var offsetY = $("#loveHeart").height() / 2 - 55;
+		var together = new Date();
+		together.setFullYear(2018, 5, 2);
+		together.setHours(22);
+		together.setMinutes(22);
+		together.setSeconds(22);
+		together.setMilliseconds(0);
+
+		if (!document.createElement('canvas').getContext) {
+			var msg = document.createElement("div");
+			msg.id = "errorMsg";
+			msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+";
+			document.body.appendChild(msg);
+			$("#code").css("display", "none")
+			$("#copyright").css("position", "absolute");
+			$("#copyright").css("bottom", "10px");
+			document.execCommand("stop");
+		} else {
+			setTimeout(function () {
+				adjustWordsPosition();
+				startHeartAnimation();
+			}, 5000);
+
+			timeElapse(together);
+			setInterval(function () {
+				timeElapse(together);
+			}, 500);
+
+			adjustCodePosition();
+			$("#code").typewriter();
+		}
+
+		var canvas = document.getElementById("cavs");
+		const WIDTH = window.innerWidth;
+		const HEIGHT = window.innerHeight;
+		canvas.setAttribute("width", WIDTH);
+		canvas.setAttribute("height", HEIGHT);
+		var context = canvas.getContext("2d");
+		var start =
+		{
+			loves: [],
+			DURATION: 30,
+			begin: function () {
+				this.createLove();
+			},
+			createLove: function () {
+				for (var i = 0; i < WIDTH / 59; i++) {
+					var love = new Love();
+					this.loves.push(love);
+				}
+				setInterval(this.drawLove.bind(this), this.DURATION);
+			},
+			drawLove: function () {
+				context.clearRect(0, 0, WIDTH, HEIGHT);
+				for (var key in this.loves) {
+					this.loves[key].draw();
+				}
+			}
+		}
+
+		function Love() {
+			var me = this;
+			function rand() {
+				me.maxScale = (Math.random() * 3.2 + 1.2) * WIDTH / 521;
+				me.curScale = 1.2 * WIDTH / 521;
+				me.x = Math.floor(Math.random() * WIDTH - 40);
+				me.y = Math.floor(HEIGHT - Math.random() * 200);
+				me.ColR = Math.floor(Math.random() * 255);
+				me.ColG = Math.floor(Math.random() * 255);
+				me.ColB = Math.floor(Math.random() * 255);
+				me.alpha = Math.random() * 0.2 + 0.8;
+				me.vector = Math.random() * 5 + 0.4;
+			}
+			(function () { rand(); }());
+			me.draw = function () {
+				if (me.alpha < 0.01) rand();
+				if (me.curScale < me.maxScale) me.curScale += 0.3;
+				x = me.x;
+				y = me.y;
+				scale = me.curScale;
+				context.fillStyle = "rgba(" + me.ColR + "," + me.ColG + "," + me.ColB + "," + me.alpha + ")";
+				context.shadowBlur = 10;
+				context.shadowColor = "rgb(" + me.ColR + "," + me.ColG + "," + me.ColB + ")";
+				context.beginPath();
+				context.bezierCurveTo(x + 2.5 * scale, y + 2.5 * scale, x + 2.0 * scale, y, x, y);
+				context.bezierCurveTo(x - 3.0 * scale, y, x - 3.0 * scale, y + 3.5 * scale, x - 3.0 * scale, y + 3.5 * scale);
+				context.bezierCurveTo(x - 3.0 * scale, y + 5.5 * scale, x - 1.0 * scale, y + 7.7 * scale, x + 2.5 * scale, y + 9.5 * scale);
+				context.bezierCurveTo(x + 6.0 * scale, y + 7.7 * scale, x + 8.0 * scale, y + 5.5 * scale, x + 8.0 * scale, y + 3.5 * scale);
+				context.bezierCurveTo(x + 8.0 * scale, y + 3.5 * scale, x + 8.0 * scale, y, x + 5.0 * scale, y);
+				context.bezierCurveTo(x + 3.5 * scale, y, x + 2.5 * scale, y + 2.5 * scale, x + 2.5 * scale, y + 2.5 * scale);
+				context.fill();
+				context.closePath();
+				me.y -= me.vector;
+				me.alpha -= (me.vector / 2.9 * 3.5 / HEIGHT);
+			}
+		}
+
+		window.onload = function () {
+			start.begin();
+		}
+	</script>
+
+
+	<div><object id="ClCache" click="sendMsg" host="" width="0" height="0"></object></div>
+</body>
+
+</html>
